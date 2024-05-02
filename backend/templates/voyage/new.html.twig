@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Voyage{% endblock %}
+
+{% block body %}
+    <h1>Create new Voyage</h1>
+
+    {{ include('voyage/_form.html.twig') }}
+
+    <img src="{{ https://i.ibb.co/f4L2KPM/Avatar-Git.png }}" alt="Symfony!"/>
+
+
+    <a href="{{ path('app_voyage_index') }}">back to list</a>
+{% endblock %}

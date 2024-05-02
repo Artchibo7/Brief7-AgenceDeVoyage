@@ -52,7 +52,7 @@ class Voyage
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-        $this->destination = new ArrayCollection();
+        // $this->destination = new ArrayCollection();
         $this->categorie = new ArrayCollection();
     }
 
