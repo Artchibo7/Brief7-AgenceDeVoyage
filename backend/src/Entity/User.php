@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -17,22 +19,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Asert\Legnth(min: 2, max: 50, minMessage: "Le nom doit avoir plus de 2 caractères", maxMessage: "Le nom ne doit avoir plus de 50 caractères")]
-    #[Asert\NotBlank(message: "Le champ ne peut pas être vide!")]
+    #[Assert\Length(min: 2, max: 50, minMessage: "Le nom doit avoir plus de 2 caractères", maxMessage: "Le nom ne doit avoir plus de 50 caractères")]
+    #[Assert\NotBlank(message: "Le champ ne peut pas être vide!")]
     #[ORM\Column(length: 50)]
     private ?string $Nom = null;
 
-    #[Asert\Legnth(min: 2, max: 50, minMessage: "Le prenom doit avoir plus de 2 caractères", maxMessage: "Le prenom ne doit avoir plus de 50 caractères")]
-    #[Asert\NotBlank(message: "Le champ ne peut pas être vide!")]
+    #[Assert\Length(min: 2, max: 50, minMessage: "Le prenom doit avoir plus de 2 caractères", maxMessage: "Le prenom ne doit avoir plus de 50 caractères")]
+    #[Assert\NotBlank(message: "Le champ ne peut pas être vide!")]
     #[ORM\Column(length: 50)]
     private ?string $Prenom = null;
 
     #[ORM\Column(length: 20)]
     private ?string $Telephone = null;
 
+    #[Assert\Email(message: "L'email n'est pas valide")]
     #[ORM\Column(length: 80)]
     private ?string $email = null;
 
+    
     #[ORM\Column]
     private ?string $password = null;
 

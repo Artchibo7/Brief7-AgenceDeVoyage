@@ -6,6 +6,8 @@ use App\Repository\StatutRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: StatutRepository::class)]
 class Statut
@@ -15,8 +17,8 @@ class Statut
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Asert\Legnth(min: 2, max: 50, minMessage: "Le nom doit avoir plus de 2 caractères", maxMessage: "Le nom ne doit avoir plus de 50 caractères")]
-    #[Asert\NotBlank(message: "Le champ ne peut pas être vide!")]
+    #[Assert\Length(min: 2, max: 50, minMessage: "Le nom doit avoir plus de 2 caractères", maxMessage: "Le nom ne doit avoir plus de 50 caractères")]
+    #[Assert\NotBlank(message: "Le champ ne peut pas être vide!")]
     #[ORM\Column(length: 50)]
     private ?string $NomStatut = null;
 

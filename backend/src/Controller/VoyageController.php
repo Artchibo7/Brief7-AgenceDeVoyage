@@ -46,7 +46,7 @@ class VoyageController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'show', methods: ['GET'])]
     public function show(Voyage $voyage): Response
     {
         return $this->render('voyage/show.html.twig', [

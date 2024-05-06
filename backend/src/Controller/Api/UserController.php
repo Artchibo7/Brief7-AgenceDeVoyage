@@ -2,17 +2,18 @@
 
 namespace App\Controller\Api;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/api/user', name: 'api_user_')]
 class UserController extends AbstractController
 {
-    #[Route('/api/user', name: 'app_api_user')]
-    public function index(): Response
+    #[Route('s', name: 'index')]
+    public function index(UserRepository $userRepository): Response
     {
-        return $this->render('api/user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        $user = $userRepository->findAll(); 
+        return $this->json(data: $user, context: ["groups" =>["app_user_index"]]);
     }
 }

@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation {
@@ -14,10 +16,32 @@ class Reservation {
     #[Groups("app_reservation_index")]
     private ?int $id = null;
 
+    #[Assert\Length
+    (
+        min: 2, 
+        max: 50, 
+        minMessage: "Le nom du voyage doit comporter 2 caractères minimum.", 
+        maxMessage: " Le nom doit avoir moins de 50 caractères."
+        )]
+    #[Assert\NotBlank
+    (
+        message: "Le champ ne peut pas être vide!"
+        )]
     #[ORM\Column(length: 50)]
     #[Groups("app_reservation_index")]
     private ?string $Nom = null;
 
+    #[Assert\Length
+    (
+        min: 2, 
+        max: 50, 
+        minMessage: "Le prénom du voyage doit comporter 2 caractères minimum.", 
+        maxMessage: " Le prénom doit avoir moins de 50 caractères."
+        )]
+    #[Assert\NotBlank
+    (
+        message: "Le champ ne peut pas être vide!"
+        )]
     #[ORM\Column(length: 50)]
     #[Groups("app_reservation_index")]
     private ?string $Prenom = null;
