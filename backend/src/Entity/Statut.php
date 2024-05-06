@@ -15,6 +15,8 @@ class Statut
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Asert\Legnth(min: 2, max: 50, minMessage: "Le nom doit avoir plus de 2 caractères", maxMessage: "Le nom ne doit avoir plus de 50 caractères")]
+    #[Asert\NotBlank(message: "Le champ ne peut pas être vide!")]
     #[ORM\Column(length: 50)]
     private ?string $NomStatut = null;
 

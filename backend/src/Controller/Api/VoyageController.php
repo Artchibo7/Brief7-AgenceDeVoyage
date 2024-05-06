@@ -2,17 +2,18 @@
 
 namespace App\Controller\Api;
 
+use App\Repository\VoyageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/api/voyage', name: "api_voyage")]
 class VoyageController extends AbstractController
 {
-    #[Route('/api/voyage', name: 'app_api_voyage')]
-    public function index(): Response
+    #[Route('s', name: 'index')]
+    public function index(VoyageRepository $voyageRepository): Response
     {
-        return $this->render('api/voyage/index.html.twig', [
-            'controller_name' => 'VoyageController',
-        ]);
+        $voyages = $voyageRepository->findAll();
+        return $this->json(data: $voyages, context: [ "groups" =>["app_voyage_index"]]);
     }
 }

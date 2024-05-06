@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Categorie index{% endblock %}
+{% block title %}Art & Voyage{% endblock %}
 
 {% block body %}
-    <h1>Categorie index</h1>
+    <h1>Les catégories</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Description</th>
-                <th>NomCategorie</th>
+                <th>Nom Catégorie</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,8 +21,8 @@
                 <td>{{ categorie.Description }}</td>
                 <td>{{ categorie.NomCategorie }}</td>
                 <td>
-                    <a href="{{ path('app_categorie_show', {'id': categorie.id}) }}">show</a>
-                    <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">edit</a>
+                    <a class="btn btn-info" href="{{ path('app_categorie_show', {'id': categorie.id}) }}">voir</a>
+                    <a class="btn btn-success" href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">éditer</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_categorie_new') }}">Create new</a>
+    <a class="btn btn-secondary" href="{{ path('app_categorie_new') }}">Créer une nouvelle catégorie</a>
 {% endblock %}

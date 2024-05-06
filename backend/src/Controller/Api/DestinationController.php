@@ -2,17 +2,20 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Destination;
+use App\Repository\DestinationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/api/destination', name: 'api_destination')]
 class DestinationController extends AbstractController
 {
-    #[Route('/api/destination', name: 'app_api_destination')]
-    public function index(): Response
+    #[Route('s', name: 'index')]
+    public function index(DestinationRepository $destinationRepository): Response
     {
-        return $this->render('api/destination/index.html.twig', [
-            'controller_name' => 'DestinationController',
-        ]);
+        $destination = $destinationRepository->findAll();
+
+        return $this->json(data: $destination, context: ["groups" =>["app_destination_index"]]);
     }
 }

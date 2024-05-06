@@ -4,25 +4,30 @@ namespace App\Entity;
 
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
-class Reservation
-{
+class Reservation {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("app_reservation_index")]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups("app_reservation_index")]
     private ?string $Nom = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups("app_reservation_index")]
     private ?string $Prenom = null;
 
     #[ORM\Column(length: 80)]
+    #[Groups("app_reservation_index")]
     private ?string $Email = null;
 
     #[ORM\Column(length: 20)]
+    #[Groups("app_reservation_index")]
     private ?string $Telephone = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
@@ -32,78 +37,65 @@ class Reservation
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     private ?Statut $statut = null;
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getNom(): ?string
-    {
+    public function getNom(): ?string {
         return $this->Nom;
     }
 
-    public function setNom(string $Nom): static
-    {
+    public function setNom(string $Nom): static {
         $this->Nom = $Nom;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
-    {
+    public function getPrenom(): ?string {
         return $this->Prenom;
     }
 
-    public function setPrenom(string $Prenom): static
-    {
+    public function setPrenom(string $Prenom): static {
         $this->Prenom = $Prenom;
 
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
+    public function getEmail(): ?string {
         return $this->Email;
     }
 
-    public function setEmail(string $Email): static
-    {
+    public function setEmail(string $Email): static {
         $this->Email = $Email;
 
         return $this;
     }
 
-    public function getTelephone(): ?string
-    {
+    public function getTelephone(): ?string {
         return $this->Telephone;
     }
 
-    public function setTelephone(string $Telephone): static
-    {
+    public function setTelephone(string $Telephone): static {
         $this->Telephone = $Telephone;
 
         return $this;
     }
 
-    public function getVoyage(): ?Voyage
-    {
+    public function getVoyage(): ?Voyage {
         return $this->voyage;
     }
 
-    public function setVoyage(?Voyage $voyage): static
-    {
+    public function setVoyage(?Voyage $voyage): static {
         $this->voyage = $voyage;
 
         return $this;
     }
 
-    public function getStatut(): ?Statut
-    {
+    public function getStatut(): ?Statut {
         return $this->statut;
     }
 
-    public function setStatut(?Statut $statut): static
-    {
+    public function setStatut(?Statut $statut): static {
         $this->statut = $statut;
 
         return $this;

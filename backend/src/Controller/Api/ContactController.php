@@ -2,17 +2,16 @@
 
 namespace App\Controller\Api;
 
+use App\Repository\ContactRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class ContactController extends AbstractController
-{
-    #[Route('/api/contact', name: 'app_api_contact')]
-    public function index(): Response
-    {
-        return $this->render('api/contact/index.html.twig', [
-            'controller_name' => 'ContactController',
-        ]);
+#[Route('/api/contact', name: 'api_contact')]
+class ContactController extends AbstractController {
+    #[Route('s', name: 'index')]
+    public function index(ContactRepository $contactRepository): Response {
+        $contact = $contactRepository->findAll();
+        return $this->json(data: $contact, context: ["groups" => ["app_contact_index"]]);
     }
 }

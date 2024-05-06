@@ -6,22 +6,26 @@ use App\Repository\DestinationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DestinationRepository::class)]
-class Destination
-{
+class Destination {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("app_destination_index")]
     private ?int $id = null;
 
     #[ORM\Column(length: 80)]
+    #[Groups("app_destination_index")]
     private ?string $NomPays = null;
 
     #[ORM\Column(length: 80)]
+    #[Groups("app_destination_index")]
     private ?string $NomVille = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups("app_destination_index")]
     private ?string $image = null;
 
     /**
@@ -30,48 +34,40 @@ class Destination
     #[ORM\OneToMany(targetEntity: Voyage::class, mappedBy: 'destination')]
     private Collection $voyages;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->voyages = new ArrayCollection();
     }
 
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getNomPays(): ?string
-    {
+    public function getNomPays(): ?string {
         return $this->NomPays;
     }
 
-    public function setNomPays(string $NomPays): static
-    {
+    public function setNomPays(string $NomPays): static {
         $this->NomPays = $NomPays;
 
         return $this;
     }
 
-    public function getNomVille(): ?string
-    {
+    public function getNomVille(): ?string {
         return $this->NomVille;
     }
 
-    public function setNomVille(string $NomVille): static
-    {
+    public function setNomVille(string $NomVille): static {
         $this->NomVille = $NomVille;
 
         return $this;
     }
 
-    public function getImage(): ?string
-    {
+    public function getImage(): ?string {
         return $this->image;
     }
 
-    public function setImage(?string $image): static
-    {
+    public function setImage(?string $image): static {
         $this->image = $image;
 
         return $this;
@@ -80,13 +76,11 @@ class Destination
     /**
      * @return Collection<int, Voyage>
      */
-    public function getVoyages(): Collection
-    {
+    public function getVoyages(): Collection {
         return $this->voyages;
     }
 
-    public function addVoyage(Voyage $voyage): static
-    {
+    public function addVoyage(Voyage $voyage): static {
         if (!$this->voyages->contains($voyage)) {
             $this->voyages->add($voyage);
             $voyage->setDestination($this);
@@ -95,8 +89,7 @@ class Destination
         return $this;
     }
 
-    public function removeVoyage(Voyage $voyage): static
-    {
+    public function removeVoyage(Voyage $voyage): static {
         if ($this->voyages->removeElement($voyage)) {
             // set the owning side to null (unless already changed)
             if ($voyage->getDestination() === $this) {
@@ -106,6 +99,4 @@ class Destination
 
         return $this;
     }
-
-    
 }

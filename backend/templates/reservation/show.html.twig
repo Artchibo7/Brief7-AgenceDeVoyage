@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reservation{% endblock %}
+{% block title %}Réservations{% endblock %}
 
 {% block body %}
-    <h1>Reservation</h1>
+    <h1>Les réservations</h1>
 
     <table class="table">
         <tbody>
@@ -16,7 +16,7 @@
                 <td>{{ reservation.Nom }}</td>
             </tr>
             <tr>
-                <th>Prenom</th>
+                <th>Prénom</th>
                 <td>{{ reservation.Prenom }}</td>
             </tr>
             <tr>
@@ -24,15 +24,15 @@
                 <td>{{ reservation.Email }}</td>
             </tr>
             <tr>
-                <th>Telephone</th>
+                <th>Téléphone</th>
                 <td>{{ reservation.Telephone }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_reservation_index') }}">back to list</a>
+    <a class="btn btn-info" href="{{ path('app_reservation_index') }}">retour à la liste</a>
 
-    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+    <a class="btn btn-success" href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">éditer</a>
 
     {{ include('reservation/_delete_form.html.twig') }}
 {% endblock %}

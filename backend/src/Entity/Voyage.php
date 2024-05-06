@@ -7,25 +7,38 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: VoyageRepository::class)]
-class Voyage
-{
+class Voyage {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("app_voyage_index")]
     private ?int $id = null;
 
+    #[Assert\Length(min: 2, max: 80, minMessage: "Le nom du voyage doit comporter 2 caractères minimum.", maxMessage: " Le nom doit avoir moins de 80 caractères.")]
+    #[Assert\NotBlank(message: "Le champ ne peut pas être vide!")]
     #[ORM\Column(length: 80)]
+    #[Groups("app_voyage_index")]
     private ?string $NomVoyage = null;
 
+    #[Assert\NotBlank(message: "Le champ ne peut pas être vide!")]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups("app_voyage_index")]
     private ?\DateTimeInterface $DateDepart = null;
 
+    #[Assert\NotBlank(message: "Le champ ne peut pas être vide!")]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups("app_voyage_index")]
     private ?\DateTimeInterface $DateRetour = null;
 
+    #[Assert\NotBlank(message: "Le champ ne peut pas être vide!")]
+    #[Assert\Length(min: 2, max: 255, minMessage: "La description doit avoir plus de 2 caractères", maxMessage: "La description doit avoir moins de 255 caractères")]
     #[ORM\Column(length: 255)]
+    #[Groups("app_voyage_index")]
     private ?string $Description = null;
 
     #[ORM\ManyToOne(inversedBy: 'voyages')]
@@ -36,87 +49,79 @@ class Voyage
      * @var Collection<int, Reservation>
      */
     #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'voyage')]
+#[Groups("app_voyage_index")]
+
     private Collection $reservations;
 
-    
+
 
     /**
      * @var Collection<int, Categorie>
      */
     #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'voyages')]
+#[Groups("app_voyage_index")]
+
     private Collection $categorie;
 
     #[ORM\ManyToOne(inversedBy: 'voyages')]
     private ?Destination $destination = null;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->reservations = new ArrayCollection();
         // $this->destination = new ArrayCollection();
         $this->categorie = new ArrayCollection();
     }
 
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getNomVoyage(): ?string
-    {
+    public function getNomVoyage(): ?string {
         return $this->NomVoyage;
     }
 
-    public function setNomVoyage(string $NomVoyage): static
-    {
+    public function setNomVoyage(string $NomVoyage): static {
         $this->NomVoyage = $NomVoyage;
 
         return $this;
     }
 
-    public function getDateDepart(): ?\DateTimeInterface
-    {
+    public function getDateDepart(): ?\DateTimeInterface {
         return $this->DateDepart;
     }
 
-    public function setDateDepart(\DateTimeInterface $DateDepart): static
-    {
+    public function setDateDepart(\DateTimeInterface $DateDepart): static {
         $this->DateDepart = $DateDepart;
 
         return $this;
     }
 
-    public function getDateRetour(): ?\DateTimeInterface
-    {
+    public function getDateRetour(): ?\DateTimeInterface {
         return $this->DateRetour;
     }
 
-    public function setDateRetour(\DateTimeInterface $DateRetour): static
-    {
+    public function setDateRetour(\DateTimeInterface $DateRetour): static {
         $this->DateRetour = $DateRetour;
 
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
+    public function getDescription(): ?string {
         return $this->Description;
     }
 
-    public function setDescription(string $Description): static
-    {
+    public function setDescription(string $Description): static {
         $this->Description = $Description;
 
         return $this;
     }
 
-    public function getUser(): ?User
-    {
+    public function getUser(): ?User {
         return $this->user;
     }
 
-    public function setUser(?User $user): static
-    {
+    public function setUser(?User $user): static {
         $this->user = $user;
 
         return $this;
@@ -125,13 +130,11 @@ class Voyage
     /**
      * @return Collection<int, Reservation>
      */
-    public function getReservations(): Collection
-    {
+    public function getReservations(): Collection {
         return $this->reservations;
     }
 
-    public function addReservation(Reservation $reservation): static
-    {
+    public function addReservation(Reservation $reservation): static {
         if (!$this->reservations->contains($reservation)) {
             $this->reservations->add($reservation);
             $reservation->setVoyage($this);
@@ -140,8 +143,7 @@ class Voyage
         return $this;
     }
 
-    public function removeReservation(Reservation $reservation): static
-    {
+    public function removeReservation(Reservation $reservation): static {
         if ($this->reservations->removeElement($reservation)) {
             // set the owning side to null (unless already changed)
             if ($reservation->getVoyage() === $this) {
@@ -155,13 +157,11 @@ class Voyage
     /**
      * @return Collection<int, Categorie>
      */
-    public function getCategorie(): Collection
-    {
+    public function getCategorie(): Collection {
         return $this->categorie;
     }
 
-    public function addCategorie(Categorie $categorie): static
-    {
+    public function addCategorie(Categorie $categorie): static {
         if (!$this->categorie->contains($categorie)) {
             $this->categorie->add($categorie);
         }
@@ -169,20 +169,17 @@ class Voyage
         return $this;
     }
 
-    public function removeCategorie(Categorie $categorie): static
-    {
+    public function removeCategorie(Categorie $categorie): static {
         $this->categorie->removeElement($categorie);
 
         return $this;
     }
 
-    public function getDestination(): ?Destination
-    {
+    public function getDestination(): ?Destination {
         return $this->destination;
     }
 
-    public function setDestination(?Destination $destination): static
-    {
+    public function setDestination(?Destination $destination): static {
         $this->destination = $destination;
 
         return $this;

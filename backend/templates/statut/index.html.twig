@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Statut index{% endblock %}
+{% block title %}Art & Voyage{% endblock %}
 
 {% block body %}
-    <h1>Statut index</h1>
+    <h1>Les statuts</h1>
 
     <table class="table">
         <thead>
@@ -19,8 +19,8 @@
                 <td>{{ statut.id }}</td>
                 <td>{{ statut.NomStatut }}</td>
                 <td>
-                    <a href="{{ path('app_statut_show', {'id': statut.id}) }}">show</a>
-                    <a href="{{ path('app_statut_edit', {'id': statut.id}) }}">edit</a>
+                    <a class"btn btn-info" href="{{ path('app_statut_show', {'id': statut.id}) }}">voir</a>
+                    <a class="btn btn-success" href="{{ path('app_statut_edit', {'id': statut.id}) }}">éditer</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_statut_new') }}">Create new</a>
+    <a href="{{ path('app_statut_new') }}">Créer un nouveau</a>
 {% endblock %}
