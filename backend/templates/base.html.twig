@@ -19,9 +19,8 @@
 		{% endblock %}
 	</head>
 	<body>
-		<div class="container">
-            {% block body %}
-            {% endblock %}
+		{% include 'includes/header.html.twig' %}
+		<div class="container"> {% block body %}{% endblock %}
 		</div>
 	</body>
 </html>

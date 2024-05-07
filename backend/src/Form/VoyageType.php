@@ -24,10 +24,10 @@ class VoyageType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('Description')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            // ->add('user', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'id',
+            // ])
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => 'nomCategorie',

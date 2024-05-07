@@ -9,10 +9,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted("ROLE_ADMIN")]
+#[IsGranted("ROLE_EDITEUR")]
 #[Route('/user', name: "app_user_" )]
 class UserController extends AbstractController
 {
@@ -25,13 +27,21 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('password')->getData()){
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                    );
+            }
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -53,14 +63,22 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('password')->getData()){
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                    );
+            }
+            $entityManager->persist($user);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
