@@ -2,13 +2,17 @@
 
 import "./page.css";
 import Image from "next/image";
-import styles from "./page.module.css";
-import Navbar from "@/components/navbar/Navbar.jsx";
+import React from "react";
+import Navbar from "@/Components/Navbar/Navbar";
+import Body from "@/Components/Body/Body";
+import Footer from "@/Components/Footer/Footer";
 
 export default function Home() {
   return (
     <>
       <Navbar />
+      <Body />
+      <Footer />
     </>
   );
 }
