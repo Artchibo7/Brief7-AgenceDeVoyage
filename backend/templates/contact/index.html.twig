@@ -3,12 +3,12 @@
 {% block title %}Art & Voyage{% endblock %}
 
 {% block body %}
-    <h1>Contact index</h1>
+    	<h1 class="text-center" style="color: green">Les contacts</h1>
+
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Email</th>
@@ -20,7 +20,6 @@
         <tbody>
         {% for contact in contacts %}
             <tr>
-                <td>{{ contact.id }}</td>
                 <td>{{ contact.Nom }}</td>
                 <td>{{ contact.Prenom }}</td>
                 <td>{{ contact.Email }}</td>

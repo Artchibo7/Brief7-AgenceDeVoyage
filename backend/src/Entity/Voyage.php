@@ -25,12 +25,14 @@ class Voyage {
     #[Groups("app_voyage_index")]
     private ?string $NomVoyage = null;
 
-    #[Assert\NotBlank(message: "Le champ ne peut pas être vide!")]
+    #[Assert\NotBlank(message: "La date de départ ne peut pas être vide!")]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Groups("app_voyage_index")]
     private ?\DateTimeInterface $DateDepart = null;
 
-    #[Assert\NotBlank(message: "Le champ ne peut pas être vide!")]
+    #[Assert\NotBlank(message: "La date de retour ne peut pas être vide!")]
+    #[Assert\Expression("this.getDateRetour() > this.getDateDepart()", message: "La date de retour doit etre superieure a la date de depart")]
+    // @Assert\Callback({"App\Validator\VoyageValidator", "validateVoyage"})
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Groups("app_voyage_index")]
     private ?\DateTimeInterface $DateRetour = null;

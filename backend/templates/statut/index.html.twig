@@ -3,12 +3,11 @@
 {% block title %}Art & Voyage{% endblock %}
 
 {% block body %}
-    <h1>Les statuts</h1>
+    <h1 class="text-center" style="color: green">Les statuts</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>NomStatut</th>
                 <th>actions</th>
             </tr>
@@ -16,7 +15,6 @@
         <tbody>
         {% for statut in statuts %}
             <tr>
-                <td>{{ statut.id }}</td>
                 <td>{{ statut.NomStatut }}</td>
                 <td>
                     <a class"btn btn-info" href="{{ path('app_statut_show', {'id': statut.id}) }}">voir</a>

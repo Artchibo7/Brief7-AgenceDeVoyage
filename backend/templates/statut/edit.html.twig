@@ -3,9 +3,9 @@
 {% block title %}Art & Voyage{% endblock %}
 
 {% block body %}
-    <h1>Editer Statut</h1>
+    <h1 class="text-center" style="color: green">Editer Statut</h1>
 
-    {{ include('statut/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('statut/_form.html.twig', {'button_label': 'Appliquer'}) }}
 
     <a href="{{ path('app_statut_index') }}">retour à la liste</a>
 

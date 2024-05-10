@@ -14,22 +14,20 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
 				<th>NomVoyage</th>
 				<th>DateDepart</th>
 				<th>DateRetour</th>
-				<th>Description</th>
+				<th>Destination</th>
 				<th>actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for voyage in app.user.voyages %}
 				<tr>
-					<td>{{ voyage.id }}</td>
 					<td>{{ voyage.NomVoyage }}</td>
 					<td>{{ voyage.DateDepart ? voyage.DateDepart|date('Y-m-d') : '' }}</td>
 					<td>{{ voyage.DateRetour ? voyage.DateRetour|date('Y-m-d') : '' }}</td>
-					<td>{{ voyage.Description }}</td>
+					<td>{{ voyage.destination.nomPays }}</td>
 					<td>
 						<a class="btn btn-primary" href="{{ path('app_voyage_show', {'id': voyage.id}) }}">voir</a>
 						<a class="btn btn-success" href="{{ path('app_voyage_edit', {'id': voyage.id}) }}">éditer</a>
@@ -48,22 +46,20 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
 				<th>NomVoyage</th>
 				<th>DateDepart</th>
 				<th>DateRetour</th>
-				<th>Description</th>
+				<th>Destination</th>
 				<th>actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for voyage in voyages %}
 				<tr>
-					<td>{{ voyage.id }}</td>
 					<td>{{ voyage.NomVoyage }}</td>
 					<td>{{ voyage.DateDepart ? voyage.DateDepart|date('Y-m-d') : '' }}</td>
 					<td>{{ voyage.DateRetour ? voyage.DateRetour|date('Y-m-d') : '' }}</td>
-					<td>{{ voyage.Description }}</td>
+					<td>{{ voyage.destination.nomPays }}</td>
 					<td>
 						<a class="btn btn-primary" href="{{ path('app_voyage_show', {'id': voyage.id}) }}">voir</a>
 						<a class="btn btn-success" href="{{ path('app_voyage_edit', {'id': voyage.id}) }}">éditer</a>

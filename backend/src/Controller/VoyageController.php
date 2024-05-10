@@ -17,19 +17,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[IsGranted("ROLE_EDITEUR")]
 #[Groups("app_voyage_index")]
 #[Route('/voyage', name: 'app_voyage_')]
-class VoyageController extends AbstractController
-{
+class VoyageController extends AbstractController {
     #[Route('s', name: 'index', methods: ['GET'])]
-    public function index(VoyageRepository $voyageRepository): Response
-    {
+    public function index(VoyageRepository $voyageRepository): Response {
         return $this->render('voyage/index.html.twig', [
             'voyages' => $voyageRepository->findAll(),
         ]);
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function new(Request $request, EntityManagerInterface $entityManager): Response {
         $voyage = new Voyage();
         $form = $this->createForm(VoyageType::class, $voyage);
         $form->handleRequest($request);
@@ -49,18 +46,16 @@ class VoyageController extends AbstractController
     }
 
     #[Route('/{id}/show', name: 'show', methods: ['GET'])]
-    public function show(Voyage $voyage): Response
-    {
+    public function show(Voyage $voyage): Response {
         return $this->render('voyage/show.html.twig', [
             'voyage' => $voyage,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Voyage $voyage, UserInterface $user, EntityManagerInterface $entityManager): Response
-    {
-        if($this->isGranted('ROLE_EDITEUR') && !$this->isGranted('ROLE_ADMIN')){
-            if($voyage->getUser() !== $user){
+    public function edit(Request $request, Voyage $voyage, UserInterface $user, EntityManagerInterface $entityManager): Response {
+        if ($this->isGranted('ROLE_EDITEUR') && !$this->isGranted('ROLE_ADMIN')) {
+            if ($voyage->getUser() !== $user) {
                 $this->addFlash('erreur', 'Vous ne pouvez pas modifier ce voyage!!!');
                 return $this->redirectToRoute("app_voyage_index");
             }
@@ -81,22 +76,20 @@ class VoyageController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, Voyage $voyage, UserInterface $user, EntityManagerInterface $entityManager): Response
-    {
-        if($this->isGranted('ROLE_EDITEUR') && !$this->isGranted('ROLE_ADMIN')){
-            if($voyage->getUser() !== $user){
-                $this->addFlash('erreur', 'Vous ne pouvez pas modifier ce voyage!!!');
+    public function delete(Request $request, Voyage $voyage, UserInterface $user, EntityManagerInterface $entityManager): Response {
+        if ($this->isGranted('ROLE_EDITEUR') && !$this->isGranted('ROLE_ADMIN')) {
+            if ($voyage->getUser() !== $user) {
+                $this->addFlash('erreur', 'Vous ne pouvez pas supprimer ce voyage!!!');
                 return $this->redirectToRoute("app_voyage_index");
             }
-        if ($this->isCsrfTokenValid('delete'.$voyage->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($voyage);
-            $entityManager->flush();
-            
         }
 
-        return $this->redirectToRoute('app_voyage_index', [], Response::HTTP_SEE_OTHER);
+        if ($this->isCsrfTokenValid('delete' . $voyage->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($voyage);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le voyage a bien été supprimé');
+        }
+        return $this->redirectToRoute('app_voyage_index');
     }
-}
-
-
 }

@@ -3,12 +3,18 @@
 {% block title %}Art & Voyage{% endblock %}
 
 {% block body %}
-    <h1>Les destinations</h1>
+
+	<h1 class="text-center" style="color: green">Mes destinations</h1>
+
+    {% for message in app.flashes('erreurDelete') %}
+		<div class="alert bg-danger text-center text-white p-1 m-5 mt-3 mb-3 rounded ">
+			{{ message }}
+		</div>
+	{% endfor %}
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>NomPays</th>
                 <th>NomVille</th>
                 <th>Image</th>
@@ -18,7 +24,6 @@
         <tbody>
         {% for destination in destinations %}
             <tr>
-                <td>{{ destination.id }}</td>
                 <td>{{ destination.NomPays }}</td>
                 <td>{{ destination.NomVille }}</td>
                 <td>{{ destination.image }}</td>
