@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/api/destination', name: 'api_destination')]
 class DestinationController extends AbstractController
 {
-    #[Route('s', name: 'index')]
+    #[Route('s', name: 'index', methods: ['GET'])]
     public function index(DestinationRepository $destinationRepository): Response
     {
         $destination = $destinationRepository->findAll();

@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/api/categorie', name: 'api_categorie')]
 class CategorieController extends AbstractController
 {
-    #[Route('s', name: 'index')]
+    #[Route('s', name: 'index', methods: ['GET'])]
     public function index(CategorieRepository $categorieRepository): Response
     {
         $categorie = $categorieRepository->findAll();

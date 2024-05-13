@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/api/reservation', name: 'api_reservation')]
 class ReservationController extends AbstractController
 {
-    #[Route('s', name: 'index')]
+    #[Route('s', name: 'index', methods: ['POST'])]
     public function index(ReservationRepository $reservationRepository): Response
     {
 

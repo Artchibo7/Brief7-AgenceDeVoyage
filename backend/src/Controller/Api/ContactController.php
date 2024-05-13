@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/api/contact', name: 'api_contact')]
 class ContactController extends AbstractController {
-    #[Route('s', name: 'index')]
+    #[Route('s', name: 'index', methods: ['POST'])]
     public function index(ContactRepository $contactRepository): Response {
         $contact = $contactRepository->findAll();
         return $this->json(data: $contact, context: ["groups" => ["app_contact_index"]]);
