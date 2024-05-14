@@ -13,19 +13,20 @@ class Destination {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups("app_destination_index")]
+    #[Groups("api_voyage_index")]
+
     private ?int $id = null;
 
     #[ORM\Column(length: 80)]
-    #[Groups("app_destination_index")]
+    #[Groups("api_voyage_index")]
     private ?string $NomPays = null;
 
     #[ORM\Column(length: 80)]
-    #[Groups("app_destination_index")]
+    #[Groups("api_voyage_index")]
     private ?string $NomVille = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups("app_destination_index")]
+    #[Groups("api_voyage_index")]
     private ?string $image = null;
 
     /**

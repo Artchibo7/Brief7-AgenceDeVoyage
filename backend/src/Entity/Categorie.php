@@ -13,15 +13,15 @@ class Categorie {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups("app_categorie_index")]
+    #[Groups("api_categorie_index")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups("app_categorie_index")]
+    #[Groups("api_voyage_index" ,"api_categorie_index" )]    
     private ?string $Description = null;
 
     #[ORM\Column(length: 80)]
-    #[Groups("app_categorie_index")]
+    #[Groups("api_voyage_index" ,"api_categorie_index")]    
     private ?string $NomCategorie = null;
 
     /**

@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/api/reservation', name: 'api_reservation')]
+#[Route('/api/reservation', name: 'api_reservation_')]
 class ReservationController extends AbstractController
 {
     #[Route('s', name: 'index', methods: ['POST'])]
@@ -15,6 +15,6 @@ class ReservationController extends AbstractController
     {
 
     $reservation = $reservationRepository;
-        return $this->json(data: $reservation, context: ['groups' =>["app_resevation_index"]]);
+        return $this->json($reservation, context: ['groups' => "api_reservation_index"]);
     }
 }
