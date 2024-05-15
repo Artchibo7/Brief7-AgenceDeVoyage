@@ -11,31 +11,31 @@ class Contact {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups("app_contact_index")]
+    // #[Groups("app_contact_index")]
     private ?int $id = null;
 
     #[ORM\Column(length: 80)]
-    #[Groups("app_contact_index")]
+    #[Groups('api_contact_new')]
     private ?string $Nom = null;
 
     #[ORM\Column(length: 80)]
-    #[Groups("app_contact_index")]
+    #[Groups('api_contact_new')]
     private ?string $Prenom = null;
 
     #[ORM\Column(length: 80)]
-    #[Groups("app_contact_index")]
+    #[Groups('api_contact_new')]
     private ?string $Email = null;
 
     #[ORM\Column(length: 20)]
-    #[Groups("app_contact_index")]
+    #[Groups('api_contact_new')]
     private ?string $Telephone = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups("app_contact_index")]
+    #[Groups('api_contact_new')]
     private ?string $Message = null;
 
     #[ORM\ManyToOne(inversedBy: 'contact')]
-    #[Groups("app_contact_index")]
+    #[Groups('api_contact_new')]
     private ?Statut $statut = null;
 
     public function getId(): ?int {

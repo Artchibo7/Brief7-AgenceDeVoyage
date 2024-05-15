@@ -13,7 +13,8 @@ class Reservation {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups("app_reservation_index")]
+    // #[Groups("app_reservation_index")]
+    #[Groups('api_reservation_new')]
     private ?int $id = null;
 
     #[Assert\Length
@@ -28,7 +29,7 @@ class Reservation {
         message: "Le champ ne peut pas être vide!"
         )]
     #[ORM\Column(length: 50)]
-    #[Groups("app_reservation_index")]
+    #[Groups('api_reservation_new')]
     private ?string $Nom = null;
 
     #[Assert\Length
@@ -43,22 +44,26 @@ class Reservation {
         message: "Le champ ne peut pas être vide!"
         )]
     #[ORM\Column(length: 50)]
-    #[Groups("app_reservation_index")]
+    #[Groups('api_reservation_new')]
     private ?string $Prenom = null;
 
     #[ORM\Column(length: 80)]
-    #[Groups("app_reservation_index")]
+    #[Groups('api_reservation_new')]
     private ?string $Email = null;
 
     #[ORM\Column(length: 20)]
-    #[Groups("app_reservation_index")]
+    #[Groups('api_reservation_new')]
     private ?string $Telephone = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[Groups('api_reservation_new')]
+
     #[ORM\JoinColumn(nullable: false)]
     private ?Voyage $voyage = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[Groups('api_reservation_new')]
+
     private ?Statut $statut = null;
 
     public function getId(): ?int {

@@ -16,34 +16,39 @@ class Voyage {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups("api_voyage_index")]
+    #[Groups("api_voyage_index","api_voyage_show")]
     private ?int $id = null;
 
     #[Assert\Length(min: 2, max: 80, minMessage: "Le nom du voyage doit comporter 2 caractères minimum.", maxMessage: " Le nom doit avoir moins de 80 caractères.")]
     #[Assert\NotBlank(message: "Le champ ne peut pas être vide!")]
     #[ORM\Column(length: 80)]
-    #[Groups("api_voyage_index")]
+    #[Groups("api_voyage_index","api_voyage_show")]
     private ?string $NomVoyage = null;
 
     #[Assert\NotBlank(message: "La date de départ ne peut pas être vide!")]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Groups("api_voyage_index")]
+    #[Groups("api_voyage_index","api_voyage_show")]
     private ?\DateTimeInterface $DateDepart = null;
 
     #[Assert\NotBlank(message: "La date de retour ne peut pas être vide!")]
     #[Assert\Expression("this.getDateRetour() > this.getDateDepart()", message: "La date de retour doit etre superieure a la date de depart")]
     // @Assert\Callback({"App\Validator\VoyageValidator", "validateVoyage"})
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Groups("api_voyage_index")]
+    #[Groups("api_voyage_index","api_voyage_show")]
     private ?\DateTimeInterface $DateRetour = null;
 
     #[Assert\NotBlank(message: "Le champ ne peut pas être vide!")]
     #[Assert\Length(min: 2, max: 255, minMessage: "La description doit avoir plus de 2 caractères", maxMessage: "La description doit avoir moins de 255 caractères")]
     #[ORM\Column(length: 255)]
-    #[Groups("api_voyage_index")]
+    #[Groups("api_voyage_index","api_voyage_show")]
     private ?string $Description = null;
 
+    #[ORM\Column]
+    #[Groups("api_voyage_index","api_voyage_show")]
+    private ?int $prix = null;
+
     #[ORM\ManyToOne(inversedBy: 'voyages')]
+    #[Groups("api_voyage_index","api_voyage_show")]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
@@ -68,9 +73,11 @@ class Voyage {
     #[Groups("api_voyage_index")]
     private ?Destination $destination = null;
 
+  
+
     public function __construct() {
         $this->reservations = new ArrayCollection();
-        $this->destination = new ArrayCollection();
+        // $this->destination = new ArrayCollection();
         $this->categorie = new ArrayCollection();
     }
 
@@ -183,6 +190,18 @@ class Voyage {
 
     public function setDestination(?Destination $destination): static {
         $this->destination = $destination;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix): static
+    {
+        $this->prix = $prix;
 
         return $this;
     }

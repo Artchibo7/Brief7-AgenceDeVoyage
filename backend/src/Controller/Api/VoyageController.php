@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Voyage;
 use App\Repository\VoyageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,5 +16,11 @@ class VoyageController extends AbstractController
     {
         $voyages = $voyageRepository->findAll();
         return $this->json( $voyages, context: [ "groups" => "api_voyage_index"]);
+    }
+
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    public function show(Voyage $voyage): Response
+    {
+        return $this->json($voyage, context: [ "groups" => ["api_voyage_index","api_voyage_show"]]);
     }
 }

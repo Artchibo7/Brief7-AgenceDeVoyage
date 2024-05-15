@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[Route('/contact', name: "app_contact_")]
 class ContactController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ['GET'])]
+    #[Route('s', name: 'index', methods: ['GET'])]
     public function index(ContactRepository $contactRepository): Response
     {
         return $this->render('contact/index.html.twig', [
